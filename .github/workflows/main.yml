@@ -89,7 +89,7 @@ jobs:
       - name: Sync backend code to service
         run: |
           TO_REMOVE_DEPS=('.github' '.git')
-          for d in "$TO_REMOVE_DEPS"; do echo $d; done
+          for d in '${TO_REMOVE_DEPS[@]}'; do echo $d; done
           rsync -az -e 'ssh -o StrictHostKeyChecking=no' . root@$HOST_SERVER:/opt/deploy-test/ --delete
           ls -la
         env:
