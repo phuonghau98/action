@@ -82,10 +82,9 @@ jobs:
           EOT
       - name: Build script
         run: |
-          cd microservices/api
           npm install
           npm run compile
-          npm prune --production
+          npm prune --only=production
           cat .env
       - name: Sync backend code to service
         run: |
