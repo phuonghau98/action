@@ -88,12 +88,12 @@ jobs:
           cat .env
       - name: Sync backend code to service
         run: |
-          TO_REMOVE_DEPS=('.github' '.git')
           for d in "${TO_REMOVE_DEPS[@]}"; do echo $d; done
           rsync -az -e 'ssh -o StrictHostKeyChecking=no' . root@$HOST_SERVER:/opt/deploy-test/ --delete
           ls -la
         env:
           HOST_SERVER: '64.225.100.73'
+          TO_REMOVE_DEPS: ('.github' '.git')
           
           
           
