@@ -1,0 +1,97 @@
+# This is a basic workflow to help you get started with Actions
+
+name: API-Deploy
+
+# Controls when the action will run. 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Runs a set of commands using the runners shell
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ./deploy.key
+          sudo chmod 600 ./deploy.key
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            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
+            -----END OPENSSH PRIVATE KEY-----
+      - name: Override .env file
+        run: |
+          echo -n '' > .env
+          cat <<EOT > .env
+            APP_URL="http://localhost:3000"
+            ROOT_URL="http://localhost:4000"
+            ROOT_PORT=4000
+            MONGO_URL="mongodb://localhost:27017/kitchenhero"
+          EOT
+      - name: Build script
+        run: |
+          cd microservices/api
+          npm install
+          npm run compile
+          npm prune --production
+          cat .env
+      - name: Sync backend code to service
+        run: |
+          rsync -az -e 'ssh -o StrictHostKeyChecking=no' . root@$HOST_SERVER:/opt/deploy-test/ --delete
+        env:
+          HOST_SERVER: '64.225.100.73'
+          
+          
+          
